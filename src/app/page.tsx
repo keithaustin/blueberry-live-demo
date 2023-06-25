@@ -37,7 +37,7 @@ export default function Home() {
         <div className="output-pane bg-teal-950/50 min-w-[400px] min-h-[240px]">
           {
             consoleLog.map((str: string, index: Key | null | undefined ) => {
-              return <p>{str}</p>;
+              return <p key={index}>{str}</p>;
             })
           }
         </div>
