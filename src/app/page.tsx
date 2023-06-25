@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { Key, useState } from 'react';
 import RunFromForm, { getLog } from '../../middleware/blueberry';
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
       <section className="output">
         <div className="output-pane bg-teal-950/50 min-w-[400px] min-h-[240px]">
           {
-            consoleLog.map(str => {
+            consoleLog.map((str: string, index: Key | null | undefined ) => {
               return <p>{str}</p>;
             })
           }
