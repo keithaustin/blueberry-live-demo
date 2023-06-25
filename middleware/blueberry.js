@@ -160,7 +160,11 @@ function tokenStream (input) {
     }
     // Skip over comment lines
     function skip_comment() {
-        read_while(function(char) { return char !== "\n" });
+        read_while(function(char) { 
+            //console.log(char);
+            //console.log(char !== "\n");
+            return char !== "\n" 
+        });
         // Skip over newline character
         input.next();
     }
@@ -671,19 +675,6 @@ function Execute(f, args) {
     }
 }
 
-// Workaround for multiline
-function fixFile (data) {
-    var charArray = data.split("");
-
-    var newData = charArray.map(function(el) {
-        if (el === "\n") return " ";
-        if (el === "\r") return " ";
-        return el;
-    }).join("");
-
-    return newData;
-}
-
 // Set up the global environment and define built-in functions
 
 var globalEnv = new Environment();
@@ -694,19 +685,10 @@ globalEnv.def("print", function(callback, str) {
     callback(false);
 });
 
-// require(filename) - Reads another Blueberry file and injects it into the current script
-globalEnv.def("require", function(callback, filename) {
-    data = fs.readFileSync(filename, 'utf8');
-    if (typeof data === "string") {
-        var injectAST = parse(tokenStream(inputStream(fixFile(data))));
-        Execute(evaluate, [ injectAST, globalEnv, callback ]);
-    }
-});
-
 // Added for webapp version: Run from HTML form data
 function RunFromForm (data) {
     // Parse to AST
-    var ast = parse(tokenStream(inputStream(fixFile(data))));
+    var ast = parse(tokenStream(inputStream(data)));
 
     clearLog();
 
