@@ -9,8 +9,22 @@ loader.init().then((monaco) => {
 
   let keywords = ['if', 'else', 'func', 'true', 'false', 'while'];
 
+  let operators = [
+    '=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
+    '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%',
+    '<<', '>>', '>>>', '+=', '-=', '*=', '/=', '&=', '|=', '^=',
+    '%=', '<<=', '>>=', '>>>='
+  ];
+
+  let symbols = /[=><!~?:&|+\-*\/\^%]+/;
+
+  let escapes = /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/;
+
   monaco.languages.setMonarchTokensProvider('blueberry', {
     keywords,
+    //operators,
+    //symbols,
+    //escapes,
     tokenizer: {
       root: [
         [/@?[a-zA-Z][\w$]*/, {
@@ -23,8 +37,17 @@ loader.init().then((monaco) => {
         [/d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
         [/\d+/, 'number'],
         [/[;,.]/, 'delimiter'],
+        //[/@symbols/, {
+        //  cases: {
+        //    '@operators': 'operator',
+        //    '@default': '',
+        //  }
+        //}],
         [/".*?"/, 'string'],
         [/#[A-Za-z][\w$]*/, 'comment'],
+        [/'[^\\']'/, 'string'],
+        //[/(')(@escapes)(')/, ['string','string.escape','string']],
+        //[/'/, 'string.invalid']
       ],
     }
   });
@@ -33,14 +56,18 @@ loader.init().then((monaco) => {
     base: 'vs-dark',
     rules: [
       { token: '', foreground: '#ffffff' },
-      { token: 'keyword', foreground: '#ff6600', fontStyle: 'bold' },
+      { token: 'keyword', foreground: '#9999ff', fontStyle: 'bold' },
+      { token: 'brackets', foreground: '#ffaa66', fontStyle: 'bold' },
+      { token: 'operator', foreground: '#006699' },
       { token: 'comment', foreground: '#00af00' },
       { token: 'string', foreground: '#009966' },
-      { token: 'variable', foreground: '#a0a0ff' },
+      { token: 'variable', foreground: '#f0f0ff' },
     ],
     inherit: true,
-    colors: { 
+    colors: {
       "editor.background": '#042f2e2d',
+      "editor.foreground": '#d4d4d4',
+      "editor.selectionBackground": '#735a2ee0',
     },
   });
 
@@ -52,7 +79,7 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    RunFromForm(codeText);
+    RunFromForm(codeText?.replaceAll("\r", ""));
     setConsoleLog(getLog());
   };
 

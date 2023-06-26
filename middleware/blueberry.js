@@ -161,8 +161,6 @@ function tokenStream (input) {
     // Skip over comment lines
     function skip_comment() {
         read_while(function(char) { 
-            //console.log(char);
-            //console.log(char !== "\n");
             return char !== "\n" 
         });
         // Skip over newline character
@@ -499,6 +497,7 @@ Environment.prototype = {
 function evaluate(exp, env, callback) {
     // Guard the stack!
     GUARD(evaluate, arguments);
+
     // Determine the expression type
     switch (exp.type) {
         // For number, string and bool values, return the value of the expression
