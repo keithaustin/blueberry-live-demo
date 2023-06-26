@@ -22,9 +22,9 @@ loader.init().then((monaco) => {
 
   monaco.languages.setMonarchTokensProvider('blueberry', {
     keywords,
-    //operators,
-    //symbols,
-    //escapes,
+    operators,
+    symbols,
+    escapes,
     tokenizer: {
       root: [
         [/@?[a-zA-Z][\w$]*/, {
@@ -37,17 +37,17 @@ loader.init().then((monaco) => {
         [/d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
         [/\d+/, 'number'],
         [/[;,.]/, 'delimiter'],
-        //[/@symbols/, {
-        //  cases: {
-        //    '@operators': 'operator',
-        //    '@default': '',
-        //  }
-        //}],
+        [/@symbols/, {
+          cases: {
+            '@operators': 'operator',
+            '@default': '',
+          }
+        }],
         [/".*?"/, 'string'],
         [/#[A-Za-z][\w$]*/, 'comment'],
         [/'[^\\']'/, 'string'],
-        //[/(')(@escapes)(')/, ['string','string.escape','string']],
-        //[/'/, 'string.invalid']
+        [/(')(@escapes)(')/, ['string','string.escape','string']],
+        [/'/, 'string.invalid']
       ],
     }
   });
