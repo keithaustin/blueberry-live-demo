@@ -58,7 +58,7 @@ function inputStream(input) {
 function tokenStream (input) {
     // Declare current token and list keywords
     var current = null;
-    var keywords = " if else func true false";
+    var keywords = " if else func true false while";
     // Return self as an object
     return {
         next  : next,
