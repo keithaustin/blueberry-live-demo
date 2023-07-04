@@ -4,77 +4,8 @@ import React, { Key, useState } from 'react';
 import Editor, { loader } from '@monaco-editor/react';
 import RunFromForm, { getLog } from '../../middleware/blueberry';
 
-loader.init().then((monaco) => {
-  monaco.languages.register({ id: 'blueberry' });
-
-  let keywords = ['if', 'else', 'func', 'true', 'false', 'while'];
-
-  let operators = [
-    '=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
-    '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%',
-    '<<', '>>', '>>>', '+=', '-=', '*=', '/=', '&=', '|=', '^=',
-    '%=', '<<=', '>>=', '>>>='
-  ];
-
-  let symbols = /[=><!~?:&|+\-*\/\^%]+/;
-
-  let escapes = /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/;
-
-  monaco.languages.setMonarchTokensProvider('blueberry', {
-    keywords,
-    operators,
-    symbols,
-    escapes,
-    tokenizer: {
-      root: [
-        [/@?[a-zA-Z][\w$]*/, {
-          cases: {
-            '@keywords': 'keyword',
-            '@default': 'variable',
-          }
-        }],
-        [/[{}()\[\]]/, 'brackets'],
-        [/d*\.\d+([eE][\-+]?\d+)?/, 'number.float'],
-        [/\d+/, 'number'],
-        [/[;,.]/, 'delimiter'],
-        [/@symbols/, {
-          cases: {
-            '@operators': 'operator',
-            '@default': '',
-          }
-        }],
-        [/".*?"/, 'string'],
-        [/#[A-Za-z][\w$]*/, 'comment'],
-        [/'[^\\']'/, 'string'],
-        [/(')(@escapes)(')/, ['string','string.escape','string']],
-        [/'/, 'string.invalid']
-      ],
-    }
-  });
-
-  monaco.editor.defineTheme('blueberry', {
-    base: 'vs-dark',
-    rules: [
-      { token: '', foreground: '#ffffff' },
-      { token: 'keyword', foreground: '#9999ff', fontStyle: 'bold' },
-      { token: 'brackets', foreground: '#ffaa66', fontStyle: 'bold' },
-      { token: 'operator', foreground: '#006699' },
-      { token: 'comment', foreground: '#00af00' },
-      { token: 'string', foreground: '#009966' },
-      { token: 'variable', foreground: '#f0f0ff' },
-    ],
-    inherit: true,
-    colors: {
-      "editor.background": '#042f2e2d',
-      "editor.foreground": '#d4d4d4',
-      "editor.selectionBackground": '#735a2ee0',
-    },
-  });
-
-});
-
 export default function Home() {
-  const [codeText, setCodeText] = useState<string | undefined>("");
+  const [codeText, setCodeText] = useState<string>("");
   const [consoleLog, setConsoleLog] = useState(new Array);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -91,13 +22,11 @@ export default function Home() {
       </section>
       <section className="input text-center mb-4">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <Editor
-            className="min-w-[400px] min-h-[300px] rounded-lg shadow-xl"
-            defaultLanguage="blueberry"
-            language="blueberry"
+          <textarea
+            className="min-w-[400px] min-h-[300px] rounded-lg shadow-xl font-mono"
             defaultValue={codeText}
-            onChange={(text) => setCodeText(text)}
-            theme="blueberry"
+            onChange={(e) => setCodeText(e.target.value)}
+            required
           />
           <br />
           <br />
