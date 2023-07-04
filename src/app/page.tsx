@@ -24,7 +24,7 @@ export default function Home() {
           <textarea
             className="rounded-lg shadow-xl font-mono min-h-[300px] min-w-[340px]
               md:min-w-[440px] lg:min-w-[640px] md:min-h-[400px] lg:min-h-[500px]
-              bg-teal-950/30 rounded-lg shadow-xl"
+              bg-teal-950/30 rounded-lg shadow-xl focus:outline-none p-2"
             value={codeText}
             onChange={(e) => setCodeText(e.target.value)}
             required

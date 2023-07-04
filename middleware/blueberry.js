@@ -609,6 +609,8 @@ function apply_op(op, a, b) {
             //throw new Error("Cannot divide by zero!");
             addToLog(`> Error: Can't divide by zero!`);
         }
+
+        return x;
     }
     // Determine operator type and apply
     switch (op) {
