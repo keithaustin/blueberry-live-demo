@@ -1,7 +1,6 @@
 'use client'
 
 import React, { Key, useState } from 'react';
-import Editor, { loader } from '@monaco-editor/react';
 import RunFromForm, { getLog } from '../../middleware/blueberry';
 
 export default function Home() {
