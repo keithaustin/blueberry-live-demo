@@ -23,8 +23,9 @@ export default function Home() {
       <section className="input text-center mb-4">
         <form onSubmit={(e) => handleSubmit(e)}>
           <textarea
-            className="min-w-[400px] min-h-[300px] rounded-lg shadow-xl font-mono"
-            defaultValue={codeText}
+            className="min-w-[400px] min-h-[300px] rounded-lg shadow-xl font-mono
+              bg-teal-950/30 rounded-lg shadow-xl"
+            value={codeText}
             onChange={(e) => setCodeText(e.target.value)}
             required
           />
@@ -38,7 +39,7 @@ export default function Home() {
       </section>
       <section className="output">
         <div className="output-pane bg-teal-950/30 min-w-[400px] min-h-[144px] max-h-[280px]
-          p-4 overflow-y-auto flex flex-col-reverse shadow-xl">
+          p-4 overflow-y-auto rounded-lg flex flex-col-reverse shadow-xl font-mono">
           {
             consoleLog.slice(0).reverse().map((str: string, index: Key | null | undefined) => {
               return <div key={index}>{str}</div>;
