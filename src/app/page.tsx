@@ -37,7 +37,7 @@ export default function Home() {
           </button>
         </form>
       </section>
-      <section className="output">
+      <section className="output mb-4">
         <div className="output-pane bg-teal-950/30 min-h-[144px] max-h-[280px]
           min-w-[340px] md:min-w-[440px] lg:min-w-[640px] md:min-h-[244px] lg:min-h-[344px]
           p-4 overflow-y-auto rounded-lg flex flex-col-reverse shadow-xl font-mono">
@@ -47,6 +47,13 @@ export default function Home() {
             })
           }
         </div>
+      </section>
+      <section className="footer">
+        Blueberry Interpreter Source:&nbsp;
+        <a href="https://github.com/keithaustin/Blueberry"
+          className="font-semibold underline hover:no-underline">View on Github</a>
+        <br />
+        
       </section>
     </main>
   )
