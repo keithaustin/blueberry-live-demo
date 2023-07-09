@@ -80,7 +80,7 @@ function tokenStream (input) {
     }
     // Determine if string is an identifier
     function is_id(char) {
-        return is_id_start(char) || "?!-<>=0123456789".indexOf(char) >= 0;
+        return is_id_start(char) || "?!-<>0123456789".indexOf(char) >= 0;
     }
     // Determine if current character is an operator
     function is_op_char(char) {
@@ -682,7 +682,7 @@ var globalEnv = new Environment();
 
 // print(str) - prints a string/number to the console
 globalEnv.def("print", function(callback, str) {
-    addToLog("> " + str);
+    addToLog(`> ${str}`);
     callback(false);
 });
 
