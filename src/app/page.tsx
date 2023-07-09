@@ -48,12 +48,17 @@ export default function Home() {
           }
         </div>
       </section>
-      <section className="footer">
+      <section className="footer text-center">
         Blueberry Interpreter Source:&nbsp;
+        <br />
         <a href="https://github.com/keithaustin/Blueberry"
           className="font-semibold underline hover:no-underline">View on Github</a>
         <br />
-        
+        <br />
+        Live Demo Source:&nbsp;
+        <br />
+        <a href="https://github.com/keithaustin/blueberry-live-demo"
+          className="font-semibold underline hover:no-underline">View on Github</a>
       </section>
     </main>
   )
